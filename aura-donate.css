@@ -1,14 +1,14 @@
 /* ===========================================================
-   Friends & Co — Aura Donation Form (FINAL OVERRIDE FILE)
-   Works even when Aura preset = Modern–Current (mobile on).
+   Friends & Co — Aura Donation Form (FINAL v10)
+   Designed to override "Modern–Current" preset cleanly.
    =========================================================== */
 
-/* 0) Type */
+/* 0) Type (load once) */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 
-/* 1) Brand + base container (strong specificity to beat preset) */
+/* 1) Base container + tokens (strong specificity to beat preset) */
 body #IATS_PaymentBoxDiv,
-body #IATS_PaymentBoxDiv * { font-family:"Open Sans", Arial, sans-serif !important; box-sizing:border-box; }
+body #IATS_PaymentBoxDiv * { font-family: "Open Sans", Arial, sans-serif !important; box-sizing: border-box; }
 
 body #IATS_PaymentBoxDiv{
   /* Brand tokens */
@@ -18,18 +18,22 @@ body #IATS_PaymentBoxDiv{
   --text:#1F2937;   /* gray-800 */
   --muted:#6B7280;  /* gray-500 */
   --line:#E5E7EB;   /* gray-200 */
-  --bg:#fff;
+  --bg:#ffffff;
 
   max-width:760px !important; width:100% !important; margin:0 auto !important;
-  padding:28px !important; background:var(--bg) !important; border-radius:14px !important;
-  box-shadow:0 10px 28px rgba(0,0,0,.06) !important; color:var(--text) !important;
+  padding:28px !important; border-radius:14px !important; color:var(--text) !important;
+  /* Gentle contrast so it's not all white */
+  background: linear-gradient(180deg, #F8FAFF 0, #FFFFFF 220px) !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,.06) !important;
 }
 
-/* Remove preset chrome that clutters */
+/* Remove preset chrome */
 body .IATS_HeaderDiv, body .IATS_FooterDiv { display:none !important; }
 
 /* 2) Headline + intro */
-body .IATS_EventTitle{ margin:0 0 8px !important; font-weight:800 !important; font-size:30px !important; line-height:1.2 !important; }
+body .IATS_EventTitle{
+  margin:0 0 8px !important; font-weight:800 !important; font-size:30px !important; line-height:1.2 !important;
+}
 body .IATS_EventDescription{ display:block !important; color:var(--muted) !important; margin:0 0 18px !important; }
 
 /* 3) Section titles */
@@ -40,22 +44,23 @@ body .IATS_AmountSectionTitle::after, body .IATS_PaymentSectionTitle::after{
   content:""; display:block; width:44px; height:3px; margin-top:6px; background:var(--accent); border-radius:2px;
 }
 
-/* 4) Section wrappers as clean cards */
+/* 4) Section cards */
 body #IATS_AmountSectionDiv,
 body #IATS_PaymentSectionDiv{
   border:1px solid var(--line) !important; border-radius:12px !important; padding:16px !important; background:#fff !important;
   box-shadow:0 2px 8px rgba(0,0,0,.04) !important;
 }
 
-/* 5) AMOUNTS — radios → pills, grid on desktop */
+/* ---------- AMOUNTS: radios → real clickable cards ---------- */
+
+/* Kill table layout & quantity UI */
 body .IATS_AmountItemDiv table,
 body .IATS_AmountItemDiv tr,
-body .IATS_AmountItemDiv td{ display:contents !important; } /* kill table layout */
-
+body .IATS_AmountItemDiv td{ display:contents !important; }
 body .IATS_QtyDiv,
-body [id^="IATS_Payment_QtyMaxError"]{ display:none !important; } /* hide quantity UI */
+body [id^="IATS_Payment_QtyMaxError"]{ display:none !important; }
 
-/* Card grid */
+/* Desktop grid */
 @media (min-width:820px){
   body #IATS_AmountSectionDiv{
     display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px 16px !important;
@@ -64,47 +69,63 @@ body [id^="IATS_Payment_QtyMaxError"]{ display:none !important; } /* hide quanti
 
 /* Each amount row as a card */
 body #IATS_AmountSectionDiv .IATS_AmountItemDiv{
+  position:relative !important;
   display:flex !important; align-items:center !important; gap:12px !important;
   border:1px solid var(--line) !important; border-radius:12px !important;
-  padding:10px 12px !important; background:#fff !important;
+  padding:12px 14px !important; background:#fff !important;
   box-shadow:0 2px 8px rgba(0,0,0,.04) !important;
 }
 
-/* Hide native radios; style span as the pill */
-body input.IATS_RadioAmtButton{ position:absolute !important; opacity:0 !important; }
-body .IATS_AmountSpan{
-  display:inline-block !important; padding:12px 16px !important; border:1px solid var(--line) !important;
-  border-radius:999px !important; font-weight:700 !important; letter-spacing:.2px !important; cursor:pointer !important;
-  transition:border-color .15s, background-color .15s, color .15s !important;
+/* Make the entire card clickable by overlaying the radio (opacity 0) */
+body #IATS_AmountSectionDiv .IATS_AmountItemDiv:not(#IATS_AmountListItemDiv_Other0) input.IATS_RadioAmtButton{
+  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+  margin:0 !important; opacity:0 !important; cursor:pointer !important;
 }
-body input.IATS_RadioAmtButton:checked + .IATS_AmountSpan{
-  border-color:var(--brand) !important; background:rgba(94,116,177,.16) !important; color:var(--ink) !important;
+/* For the "Other" row, only cover the left pill area so the text field remains editable */
+body #IATS_AmountListItemDiv_Other0 input.IATS_RadioAmtButton{
+  position:absolute !important; left:12px !important; top:12px !important; width:84px !important; height:40px !important;
+  opacity:0 !important; cursor:pointer !important;
 }
 
-/* “Other” amount row spans full width with big input */
+/* Style the visible pill text; let clicks pass to the overlay input */
+body .IATS_AmountSpan{
+  position:relative !important; z-index:1 !important; pointer-events:none !important;
+  display:inline-block !important; padding:12px 16px !important; border:1px solid var(--line) !important;
+  border-radius:999px !important; font-weight:700 !important; letter-spacing:.2px !important;
+  transition: border-color .15s, background-color .15s, color .15s !important;
+}
+
+/* Selected = solid brand pill */
+body input.IATS_RadioAmtButton:checked + .IATS_AmountSpan{
+  border-color: var(--brand) !important; background: var(--brand) !important; color:#fff !important;
+}
+
+/* "Other" row layout + field */
 body #IATS_AmountListItemDiv_Other0{
   grid-column:1/-1 !important; display:grid !important; grid-template-columns:auto 1fr !important; gap:10px !important; align-items:center !important;
   border:1px solid var(--line) !important; border-radius:12px !important; padding:10px 12px !important; background:#fff !important;
   box-shadow:0 2px 8px rgba(0,0,0,.04) !important;
 }
 body #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{
-  width:100% !important; border:1px solid var(--line) !important; border-radius:10px !important; padding:14px !important; background:#fff !important; outline:none !important;
+  width:100% !important; border:1px solid var(--line) !important; border-radius:10px !important; padding:14px !important;
+  font-size:16px !important; background:#fff !important; outline:none !important;
 }
 body #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount:focus{
   border-color:var(--brand) !important; box-shadow:0 0 0 3px rgba(94,116,177,.25) !important;
 }
 
-/* Inline amount errors */
+/* Inline errors */
 body .IATS_PaymentMinimumErrorMessage,
 body #IATS_PaymentItemErrorMesssage_NonAmount{ display:block !important; color:#b91c1c !important; font-size:13px !important; margin-top:6px !important; }
 
-/* 6) PAYMENT — real two-column grid + large inputs */
+/* ---------- PAYMENT: real two-column grid + large inputs ---------- */
+
 @media (min-width:820px){
   body #IATS_PaymentSectionDiv{
     display:grid !important; grid-template-columns:1fr 1fr !important; gap:14px 16px !important;
   }
   body #IATS_PaymentSectionDiv .IATS_PaymentSectionTitle{ grid-column:1/-1 !important; }
-  /* sensible full-width rows */
+  /* Full-width rows */
   body #IATS_PaymentItemDiv_Address,
   body #IATS_PaymentItemDiv_Comment,
   body #IATS_Payment_CreditCardDiv,
@@ -115,7 +136,7 @@ body #IATS_PaymentItemErrorMesssage_NonAmount{ display:block !important; color:#
 }
 
 body .IATS_PaymentItemDiv{ margin:0 0 12px !important; }
-body .IATS_PaymentLabelOnTop, body .IATS_PaymentLabelOnLeft{ display:inline-block !important; font-weight:600 !important; margin-bottom:6px !important; }
+body .IATS_PaymentLabelOnTop, body .IATS_PaymentLabelOnLeft{ display:inline-block !important; font-weight:600 !important; margin-bottom:6px !important; color:var(--text) !important; }
 body .IATS_InputRequired::after{ content:" *"; color:#d00; }
 
 /* Big, modern inputs */
@@ -127,8 +148,9 @@ body .IATS_ExpiryYearField,
 body .IATS_PaymentDateInputField,
 body #IATS_PaymentItemInput_State,
 body #IATS_PaymentItemInput_State2{
-  width:100% !important; height:auto !important;
-  border:1px solid var(--line) !important; border-radius:10px !important; padding:14px !important; background:#fff !important; color:var(--text) !important;
+  width:100% !important; min-height:48px !important;
+  border:1px solid var(--line) !important; border-radius:12px !important; padding:14px 16px !important;
+  background:#fff !important; color:var(--text) !important; font-size:16px !important;
   outline:none !important; appearance:none !important; transition:border-color .15s, box-shadow .15s !important;
 }
 body .IATS_PaymentInputField:focus,
@@ -152,7 +174,7 @@ body .IATS_RadioPaymentButton + label{
 body #IATS_Payment_SinglePayment:checked + label{ border-color:var(--brand) !important; background:rgba(94,116,177,.14) !important; color:var(--ink) !important; }
 body #IATS_Payment_RecurringPayment:checked + label{ border-color:var(--accent) !important; background:rgba(176,210,53,.18) !important; color:#274a12 !important; }
 
-/* 7) Actions */
+/* 5) Actions */
 body #IATS_ProcessAction_Button,
 body #IATS_BackAction_Button{
   display:inline-flex !important; align-items:center !important; justify-content:center !important;
@@ -161,14 +183,13 @@ body #IATS_BackAction_Button{
 }
 body #IATS_ProcessAction_Button{
   width:100% !important; padding:14px 18px !important; color:#fff !important;
-  background:linear-gradient(90deg,var(--brand),color-mix(in srgb,var(--brand) 70%, #000)) !important;
+  background: linear-gradient(90deg, var(--brand), color-mix(in srgb, var(--brand) 70%, #000)) !important;
 }
 body #IATS_ProcessAction_Button.IATS_Disabled{ opacity:.6 !important; cursor:not-allowed !important; }
 body #IATS_BackAction_Button{ margin-top:10px !important; padding:12px 16px !important; color:var(--ink) !important; background:#fff !important; border:1px solid var(--line) !important; }
 
-/* 8) Error box + misc */
+/* 6) Error box + misc */
 body #IATS_ErrorMsgSectionDiv{ margin-top:10px !important; padding:10px 12px !important; border-radius:10px !important; background:#fff4e9 !important; border:1px solid #ffd0a3 !important; }
 body .IATS_ErrorMessage{ color:#a85514 !important; }
-
-body #IATS_CAPTCHADiv{ margin:12px 0 !important; } /* only spacing; iframe content can’t be styled */
+body #IATS_CAPTCHADiv{ margin:12px 0 !important; } /* spacing only */
 a { color: var(--brand) !important; }
