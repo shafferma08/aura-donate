@@ -1,139 +1,96 @@
-/* ===== Friends & Co — Minimal Bold Theme ===== */
-#IATS_PaymentBoxDiv{
-  /* Brand tokens */
-  --brand:#5E74B1;        /* primary blue */
-  --ink:#2F4A83;          /* darker blue */
-  --accent:#B0D235;       /* lime accent */
-  --text:#1F2937;         /* gray-800 */
-  --muted:#6B7280;        /* gray-500 */
-  --line:#E5E7EB;         /* gray-200 */
-  --bg:#fff;
+/* Import the Open Sans font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
-  --radius:14px; --shadow:0 10px 28px rgba(0,0,0,.06);
-
-  font-family:"Open Sans", Arial, sans-serif;
-  color:var(--text);
-  width:100% !important; max-width:760px !important; margin:0 auto; 
-  padding:28px; background:var(--bg); border-radius:var(--radius); box-shadow:var(--shadow);
+/* Main form container - modern two-column layout */
+#IATS_PaymentSectionDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive two-column layout */
+    gap: 20px;
+    font-family: 'Open Sans', sans-serif; /* Apply the brand font family */
+    color: #333; /* A dark, neutral color for text */
 }
 
-/* Headline & intro */
-.IATS_EventTitle{margin:0 0 8px; font-weight:800; font-size:30px; line-height:1.2;}
-.IATS_EventDescription{display:block; color:var(--muted); margin:0 0 18px;}
-
-/* Section titles */
-.IATS_AmountSectionTitle,.IATS_PaymentSectionTitle{
-  display:block; font-weight:700; font-size:18px; margin:14px 0 10px;
-}
-.IATS_AmountSectionTitle::after,.IATS_PaymentSectionTitle::after{
-  content:""; display:block; width:44px; height:3px; margin-top:6px; background:var(--accent); border-radius:2px;
-}
-
-/* Remove old chrome */
-.IATS_HeaderDiv,.IATS_FooterDiv{display:none;}
-.IATS_QtyDiv,[id^="IATS_Payment_QtyMaxError"]{display:none !important;} /* hide quantity UI */
-.IATS_AmountItemDiv table,.IATS_AmountItemDiv tr,.IATS_AmountItemDiv td{display:contents !important;}
-
-/* ---------------- Amounts as cards ---------------- */
-#IATS_AmountSectionDiv{
-  border:1px solid var(--line); border-radius:12px; padding:16px; background:#fff;
-}
-@media (min-width: 820px){
-  #IATS_AmountSectionDiv{
-    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 16px;
-  }
-}
-.IATS_AmountItemDiv{
-  border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff;
-  display:flex !important; align-items:center !important; gap:12px !important;
-  box-shadow:0 2px 8px rgba(0,0,0,.04);
-}
-.IATS_RadioAmtButton{position:absolute; opacity:0;}
-.IATS_AmountSpan{
-  display:inline-block; padding:12px 16px; border:1px solid var(--line); border-radius:999px;
-  font-weight:700; letter-spacing:.2px; cursor:pointer; user-select:none;
-  transition:border-color .15s, background-color .15s, color .15s;
-}
-.IATS_RadioAmtButton:checked + .IATS_AmountSpan{
-  border-color:var(--brand); background:color-mix(in srgb, var(--brand) 16%, #fff); color:var(--ink);
-}
-/* “Other” spans full width */
-#IATS_AmountListItemDiv_Other0{
-  display:grid !important; grid-template-columns:auto 1fr; gap:10px; align-items:center;
-  grid-column:1/-1; border:1px solid var(--line); border-radius:12px; padding:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.04);
-}
-.IATS_OtherAmount{
-  width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; outline:none;
-  transition:border-color .15s, box-shadow .15s; background:#fff;
-}
-.IATS_OtherAmount:focus{border-color:var(--brand); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);}
-
-/* Inline errors (keep readable, not screaming) */
-.IATS_PaymentMinimumErrorMessage,#IATS_PaymentItemErrorMesssage_NonAmount{
-  display:block; color:#b91c1c; font-size:13px; margin-top:6px;
+/* Specific elements to span both columns */
+#IATS_PaymentItemDiv_Address,
+#IATS_PaymentItemDiv_EMail,
+#IATS_PaymentItemDiv_ReEnterEmail,
+#IATS_Payment_CreditCardDiv,
+#IATS_Payment_DebitDiv,
+#IATS_Payment_ReoccurringDiv,
+#IATS_ProcessAction_Button,
+.IATS_SecureDataDiv {
+    grid-column: 1 / -1; /* -1 makes it span all columns */
 }
 
-/* ---------------- Payment section grid ---------------- */
-#IATS_PaymentSectionDiv{
-  margin-top:20px; border:1px solid var(--line); border-radius:12px; padding:16px; background:#fff;
-}
-@media (min-width: 820px){
-  #IATS_PaymentSectionDiv{
-    display:grid; grid-template-columns:1fr 1fr; gap:14px 16px;
-  }
-  #IATS_PaymentSectionDiv .IATS_PaymentSectionTitle{grid-column:1/-1;}
-  /* sensible full-width rows */
-  #IATS_PaymentItemDiv_Address,
-  #IATS_PaymentItemDiv_Comment,
-  #IATS_Payment_CreditCardDiv,
-  #IATS_Payment_DebitDiv,
-  #IATS_Payment_PaymentFrequencyDiv,
-  #IATS_Payment_ReoccurringDiv,
-  #IATS_ErrorMsgSectionDiv,
-  #IATS_CAPTCHADiv{grid-column:1/-1;}
-}
-/* Labels + fields */
-.IATS_PaymentItemDiv{margin:0 0 12px;}
-.IATS_PaymentLabelOnTop,.IATS_PaymentLabelOnLeft{display:inline-block; font-weight:600; margin-bottom:6px;}
-.IATS_InputRequired::after{content:" *"; color:#d00;}
-.IATS_PaymentInputField,.IATS_AccountNumberField,.IATS_ACHInput,
-.IATS_ExpiryMonthField,.IATS_ExpiryYearField,.IATS_PaymentDateInputField,
-#IATS_PaymentItemInput_State,#IATS_PaymentItemInput_State2{
-  width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:#fff; outline:none;
-  transition:border-color .15s, box-shadow .15s; appearance:none;
-}
-.IATS_PaymentInputField:focus,.IATS_AccountNumberField:focus,.IATS_ACHInput:focus,
-.IATS_ExpiryMonthField:focus,.IATS_ExpiryYearField:focus,.IATS_PaymentDateInputField:focus,
-#IATS_PaymentItemInput_State:focus,#IATS_PaymentItemInput_State2:focus{
-  border-color:var(--brand); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);
+/* Styling the form's header and description */
+.IATS_EventTitle {
+    font-size: 24px;
+    font-weight: 700; /* Open Sans Bold */
+    color: #5E74B1; /* Use the brand's primary blue color */
 }
 
-/* Frequency pills */
-.IATS_PaymentFrequencyItemDiv{display:flex !important; gap:10px; flex-wrap:wrap; margin:4px 0 0;}
-.IATS_RadioPaymentButton{position:absolute; opacity:0;}
-.IATS_RadioPaymentButton + label{
-  border:1px solid var(--line); border-radius:999px; padding:8px 12px; cursor:pointer;
-  transition:border-color .15s, background-color .15s, color .15s;
+.IATS_EventDescription {
+    font-size: 16px;
+    font-weight: 400; /* Open Sans Regular */
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
-#IATS_Payment_SinglePayment:checked + label{border-color:var(--brand); background:color-mix(in srgb, var(--brand) 14%, #fff); color:var(--ink);}
-#IATS_Payment_RecurringPayment:checked + label{border-color:var(--accent); background:color-mix(in srgb, var(--accent) 18%, #fff); color:#274a12;}
 
-/* Submit / Back buttons */
-#IATS_ProcessAction_Button,#IATS_BackAction_Button{
-  display:inline-flex; align-items:center; justify-content:center; 
-  min-width:170px; padding:14px 18px; border-radius:999px; border:none; font-weight:800; letter-spacing:.2px;
+/* Styling for the payment section titles */
+.IATS_PaymentSectionTitle {
+    font-size: 20px;
+    font-weight: 600; /* Open Sans Semi Bold */
+    margin-top: 20px;
+    color: #BA3F97; /* Use the brand's magenta color */
+    grid-column: 1 / -1; /* Spans across all columns */
 }
-#IATS_ProcessAction_Button{
-  width:100%; color:#fff;
-  background:linear-gradient(90deg, var(--brand), color-mix(in srgb, var(--brand) 70%, #000));
-  transition:transform .06s, filter .15s, opacity .15s;
+
+/* Styling for the form field labels */
+.IATS_PaymentLabelOnTop,
+.IATS_RadioAmtLabel,
+.IATS_RadioPaymentLabel {
+    font-weight: 600; /* Open Sans Semi Bold */
+    color: #7D91A0; /* A soft grey from the brand palette */
 }
-#IATS_ProcessAction_Button:hover{filter:brightness(1.06);}
-#IATS_ProcessAction_Button:active{transform:translateY(1px);}
-#IATS_ProcessAction_Button.IATS_Disabled{opacity:.6; cursor:not-allowed;}
 
-#IATS_BackAction_Button{margin-top:10px; color:var(--ink); background:#fff; border:1px solid var(--line);}
+/* Styling for input fields and select menus */
+.IATS_PaymentInputField,
+.IATS_OtherAmount,
+select {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    font-family: 'Open Sans', sans-serif;
+    transition: all 0.3s ease;
+}
 
-/* Top error box (softer) */
-#IATS_ErrorMsgSectionDiv{margin-top:10px; padding:10px 12px; border-radius:10px; background:#fff4e9; border:1px solid #ffd0a3;}
-.IATS_ErrorMessage{color:#a85514;}
+.IATS_PaymentInputField:focus,
+.IATS_OtherAmount:focus,
+select:focus {
+    outline: none;
+    border-color: #5E74B1; /* Use the brand's primary blue on focus */
+    box-shadow: 0 0 5px rgba(94, 116, 177, 0.5);
+}
+
+/* Styling for buttons */
+.IATS_Action button,
+#IATS_ProcessAction_Button {
+    background-color: #BA3F97; /* The brand's vibrant magenta */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.IATS_Action button:hover,
+#IATS_ProcessAction_Button:hover {
+    background-color: #85C340; /* Hover effect with the brand's light green */
+}
