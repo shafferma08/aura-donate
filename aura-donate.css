@@ -1,0 +1,196 @@
+/* ===== Friends & Co — Aura Donation Form (polish pack) ===== */
+#IATS_PaymentBoxDiv {
+  /* BRAND TOKENS (from guidelines) */
+  --brand: #5E74B1;        /* primary blue */
+  --brand-ink: #2f4a83;    /* darker blue for hover/pressed */
+  --accent-magenta: #BA3F97;
+  --accent-lime:    #B0D235;
+  --accent-teal:    #00BBD3;
+  --accent-orange:  #F9A41E;
+  --accent-slate:   #7D91A0;
+  --text: #333333;
+  --muted: #666666;
+  --line: #E5E7EB;
+  --bg: #FFFFFF;
+
+  --radius: 12px;
+  --shadow: 0 10px 28px rgba(0,0,0,.08);
+  --gap: 14px;
+
+  font-family: "Open Sans", Arial, sans-serif;
+  max-width: 720px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 28px !important;
+  background: var(--bg) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+  border: none !important;
+}
+
+/* Clean up default chrome */
+.IATS_HeaderDiv, .IATS_FooterDiv { display: none !important; }
+
+/* Headline & intro */
+.IATS_EventTitle {
+  display:block; font-weight:800; font-size:28px; line-height:1.2; margin:0 0 6px;
+}
+.IATS_EventDescription { display:block; color:var(--muted); margin-bottom:20px; }
+
+/* Section headers */
+.IATS_AmountSectionTitle,
+.IATS_PaymentSectionTitle {
+  display:block; font-weight:700; font-size:18px; margin:20px 0 10px;
+}
+.IATS_AmountSectionTitle::after,
+.IATS_PaymentSectionTitle::after {
+  content:""; display:block; width:44px; height:3px; background:var(--accent-lime);
+  border-radius:2px; margin-top:6px;
+}
+
+/* ===== Amount section ===== */
+#IATS_AmountSectionDiv {
+  border:1px solid var(--line); border-radius:10px; padding:16px; background:#fff;
+}
+
+/* Remove table layout noise */
+.IATS_AmountItemDiv table, .IATS_AmountItemDiv tr, .IATS_AmountItemDiv td {
+  display:contents !important;
+}
+
+/* Hide quantity UI + its “Maximum is 0” errors (you can also disable qty in builder) */
+.IATS_QtyDiv,
+[id^="IATS_Payment_QtyMaxError"] { display:none !important; }
+
+/* Radio -> pill buttons */
+.IATS_RadioAmtButton { position:absolute !important; opacity:0 !important; }
+.IATS_AmountItemDiv {
+  display:flex !important; align-items:center !important; gap:12px !important;
+  padding:10px 0 !important; border-bottom:1px dashed var(--line);
+}
+.IATS_AmountItemDiv:last-child { border-bottom:0; }
+.IATS_AmountSpan {
+  display:inline-block; padding:10px 14px; border:1px solid var(--line);
+  border-radius:999px; cursor:pointer; user-select:none;
+  transition: border-color .15s, background-color .15s, color .15s;
+}
+.IATS_RadioAmtButton:checked + .IATS_AmountSpan {
+  border-color:var(--brand);
+  background:color-mix(in srgb, var(--brand) 12%, #fff);
+  color:var(--brand-ink);
+}
+
+/* “Other” amount row */
+#IATS_AmountListItemDiv_Other0 {
+  display:grid !important; grid-template-columns:auto 1fr; gap:10px; align-items:center;
+}
+.IATS_OtherAmount {
+  width:100% !important; border:1px solid var(--line) !important; border-radius:10px !important;
+  padding:12px 14px !important; outline:none !important; background:#fff !important;
+  transition:border-color .15s, box-shadow .15s !important;
+}
+.IATS_OtherAmount:focus {
+  border-color:var(--accent-magenta) !important;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent-magenta) 25%, transparent) !important;
+}
+
+/* Inline amount errors */
+.IATS_PaymentMinimumErrorMessage,
+#IATS_PaymentItemErrorMesssage_NonAmount {
+  display:block; color:#b91c1c; font-size:13px; margin-top:6px;
+}
+
+/* ===== Payment section ===== */
+#IATS_PaymentSectionDiv {
+  margin-top:24px; border:1px solid var(--line); border-radius:10px; padding:16px; background:#fff;
+}
+.IATS_PaymentItemDiv { margin-bottom:14px; }
+
+/* Labels */
+.IATS_PaymentLabelOnTop, .IATS_PaymentLabelOnLeft {
+  display:inline-block !important; font-weight:600 !important; margin-bottom:6px !important;
+}
+.IATS_InputRequired::after { content:" *"; color:#d00; }
+
+/* Inputs/selects */
+.IATS_PaymentInputField,
+.IATS_AccountNumberField,
+.IATS_ACHInput,
+.IATS_ExpiryMonthField,
+.IATS_ExpiryYearField,
+.IATS_PaymentDateInputField,
+#IATS_PaymentItemInput_State2,
+#IATS_PaymentItemInput_State {
+  width:100% !important; border:1px solid var(--line) !important; border-radius:10px !important;
+  padding:12px 14px !important; outline:none !important; background:#fff !important;
+  transition:border-color .15s, box-shadow .15s !important; appearance:none;
+}
+.IATS_PaymentInputField:focus,
+.IATS_AccountNumberField:focus,
+.IATS_ACHInput:focus,
+.IATS_ExpiryMonthField:focus,
+.IATS_ExpiryYearField:focus,
+.IATS_PaymentDateInputField:focus,
+#IATS_PaymentItemInput_State2:focus,
+#IATS_PaymentItemInput_State:focus {
+  border-color:var(--brand) !important;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent) !important;
+}
+
+/* Compact 2-up pairs on wider screens */
+@media (min-width: 640px) {
+  #IATS_PaymentItemDiv_FirstName,
+  #IATS_PaymentItemDiv_LastName,
+  #IATS_PaymentItemDiv_City,
+  #IATS_PaymentItemDiv_State,
+  #IATS_PaymentItemDiv_ZipCode,
+  #IATS_Payment_ExpiryDateDiv {
+    display:grid !important; grid-template-columns:1fr 1fr; column-gap:12px;
+  }
+}
+
+/* Frequency pills (One Time / Recurring) */
+.IATS_PaymentFrequencyItemDiv { display:flex !important; gap:10px !important; flex-wrap:wrap !important; margin:8px 0 4px !important; }
+.IATS_RadioPaymentButton { position:absolute; opacity:0; }
+.IATS_RadioPaymentButton + label {
+  border:1px solid var(--line); border-radius:999px; padding:8px 12px; cursor:pointer; user-select:none;
+  transition:border-color .15s, background-color .15s, color .15s;
+}
+#IATS_Payment_SinglePayment:checked + label {
+  border-color:var(--brand); background:color-mix(in srgb, var(--brand) 12%, #fff); color:var(--brand-ink);
+}
+#IATS_Payment_RecurringPayment:checked + label {
+  border-color:var(--accent-teal); background:color-mix(in srgb, var(--accent-teal) 14%, #fff); color:#0c5560;
+}
+
+/* reCAPTCHA spacing */
+#IATS_CAPTCHADiv { margin: 12px 0 !important; }
+
+/* Submit / Back buttons */
+#IATS_ProcessAction_Button,
+#IATS_BackAction_Button {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:160px; padding:14px 18px; border-radius:999px; border:none;
+  font-weight:800; letter-spacing:.2px; transition:transform .06s, filter .15s, opacity .15s;
+}
+#IATS_ProcessAction_Button {
+  background:var(--brand); color:#fff; width:100%;
+}
+#IATS_ProcessAction_Button:hover { filter:brightness(1.05); }
+#IATS_ProcessAction_Button:active { transform:translateY(1px); }
+#IATS_ProcessAction_Button.IATS_Disabled { opacity:.6 !important; cursor:not-allowed !important; }
+
+#IATS_BackAction_Button {
+  background:transparent; color:var(--brand-ink); border:1px solid var(--line); margin-top:10px;
+}
+
+/* Top error container */
+#IATS_ErrorMsgSectionDiv {
+  margin-top:10px !important; padding:10px 12px !important; border-radius:10px !important;
+  background:#fff4e9 !important; border:1px solid #ffd0a3 !important;
+}
+.IATS_ErrorMessage { color:#a85514 !important; }
+
+/* Links */
+a { color: var(--brand); }
+select { background-image: none !important; } /* quieter iOS arrows */
