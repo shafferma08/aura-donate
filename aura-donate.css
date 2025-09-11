@@ -47,7 +47,7 @@ body .IATS_AmountSectionTitle::after, body .IATS_PaymentSectionTitle::after{
 /* 4) Section cards */
 body #IATS_AmountSectionDiv,
 body #IATS_PaymentSectionDiv{
-  border:1px solid var(--line) !important; border-radius:12px !important; padding:16px !important; background:#fff !important;
+  border:1px solid var(--line) !important; border-radius:12px !important; padding:16px !important; background: var(--brand) !important;
   box-shadow:0 2px 8px rgba(0,0,0,.04) !important;
 }
 
