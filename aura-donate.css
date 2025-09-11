@@ -1,96 +1,152 @@
-/* Import the Open Sans font from Google Fonts */
+/*
+* Friends & Co Custom Donation Form Stylesheet
+* This CSS is designed to override the default Aura form styles
+* to match the Friends & Co brand identity.
+*/
+
+/* 1. Import the official brand font: Open Sans */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
-/* Main form container - modern two-column layout */
+/* Apply base styles to the entire form container */
+#IATS_PaymentBoxDiv,
+#IATSPaymentBoxForm {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    background-color: #f9f9f9; /* A light, clean background */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Modernize the layout with a responsive grid */
+.IATS_ContentDiv,
 #IATS_PaymentSectionDiv {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive two-column layout */
+    grid-template-columns: 1fr; /* Default to one column for mobile */
     gap: 20px;
-    font-family: 'Open Sans', sans-serif; /* Apply the brand font family */
-    color: #333; /* A dark, neutral color for text */
 }
 
-/* Specific elements to span both columns */
-#IATS_PaymentItemDiv_Address,
-#IATS_PaymentItemDiv_EMail,
-#IATS_PaymentItemDiv_ReEnterEmail,
-#IATS_Payment_CreditCardDiv,
-#IATS_Payment_DebitDiv,
-#IATS_Payment_ReoccurringDiv,
+/* Adjust for larger screens to use two columns */
+@media (min-width: 768px) {
+    #IATS_PaymentSectionDiv {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Ensure certain fields and sections span the full width */
+.IATS_EventTitle,
+.IATS_EventDescription,
+.IATS_AmountSectionTitle,
+.IATS_PaymentSectionTitle,
+#IATS_PaymentSectionDiv > div:nth-child(11), /* Target Credit Card/Bank details dynamically */
+#IATS_PaymentSectionDiv > div:nth-child(12),
 #IATS_ProcessAction_Button,
 .IATS_SecureDataDiv {
-    grid-column: 1 / -1; /* -1 makes it span all columns */
+    grid-column: 1 / -1;
 }
 
-/* Styling the form's header and description */
+/* 3. Apply the brand's colors and typography */
+
+/* Headings and titles */
 .IATS_EventTitle {
-    font-size: 24px;
-    font-weight: 700; /* Open Sans Bold */
-    color: #5E74B1; /* Use the brand's primary blue color */
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #BA3F97; /* Brand magenta */
 }
 
-.IATS_EventDescription {
-    font-size: 16px;
-    font-weight: 400; /* Open Sans Regular */
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-/* Styling for the payment section titles */
+.IATS_AmountSectionTitle,
 .IATS_PaymentSectionTitle {
-    font-size: 20px;
-    font-weight: 600; /* Open Sans Semi Bold */
-    margin-top: 20px;
-    color: #BA3F97; /* Use the brand's magenta color */
-    grid-column: 1 / -1; /* Spans across all columns */
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #5E74B1; /* Brand blue-gray */
+    border-bottom: 2px solid #5E74B1;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }
 
-/* Styling for the form field labels */
+/* Field labels */
 .IATS_PaymentLabelOnTop,
 .IATS_RadioAmtLabel,
 .IATS_RadioPaymentLabel {
-    font-weight: 600; /* Open Sans Semi Bold */
-    color: #7D91A0; /* A soft grey from the brand palette */
+    font-weight: 600;
+    color: #7D91A0; /* Brand warm gray */
+    margin-bottom: 5px;
 }
 
-/* Styling for input fields and select menus */
+/* 4. Style the input fields and buttons for a modern look */
 .IATS_PaymentInputField,
 .IATS_OtherAmount,
 select {
     width: 100%;
     padding: 12px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin-top: 5px;
-    font-family: 'Open Sans', sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .IATS_PaymentInputField:focus,
 .IATS_OtherAmount:focus,
 select:focus {
     outline: none;
-    border-color: #5E74B1; /* Use the brand's primary blue on focus */
-    box-shadow: 0 0 5px rgba(94, 116, 177, 0.5);
+    border-color: #5E74B1;
+    box-shadow: 0 0 0 2px rgba(94, 116, 177, 0.2);
 }
 
-/* Styling for buttons */
-.IATS_Action button,
+/* Style the Submit button */
 #IATS_ProcessAction_Button {
-    background-color: #BA3F97; /* The brand's vibrant magenta */
+    background-color: #BA3F97; /* Brand magenta */
     color: white;
     padding: 15px 25px;
     border: none;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.IATS_Action button:hover,
 #IATS_ProcessAction_Button:hover {
-    background-color: #85C340; /* Hover effect with the brand's light green */
+    background-color: #85C340; /* Brand green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Style the radio buttons for donation amounts */
+.IATS_AmountItemDiv table {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.IATS_RadioAmtButton {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #BA3F97;
+    border-radius: 50%;
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.IATS_RadioAmtButton:checked {
+    background-color: #BA3F97;
+    border-color: #BA3F97;
+    border-width: 6px;
+}
+
+.IATS_AmountSpan {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #BA3F97;
 }
