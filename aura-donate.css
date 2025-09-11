@@ -84,7 +84,7 @@ body #IATS_AmountSectionDiv .IATS_AmountItemDiv:not(#IATS_AmountListItemDiv_Othe
 /* For the "Other" row, only cover the left pill area so the text field remains editable */
 body #IATS_AmountListItemDiv_Other0 input.IATS_RadioAmtButton{
   position:absolute !important; left:12px !important; top:12px !important; width:84px !important; height:40px !important;
-  opacity:0 !important; cursor:pointer !important;
+  cursor:pointer !important;
 }
 
 /* Style the visible pill text; let clicks pass to the overlay input */
