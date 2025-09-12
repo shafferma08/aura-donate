@@ -4,6 +4,12 @@ body * {
   color: #333 !important;
 }
 
+body td {
+  width: 100%;
+  font-size: 1.2em;
+  border: none;
+}
+
 body #IATS_PaymentBoxDiv,
 body #IATS_PaymentBoxDiv * { 
   font-family: "Open Sans", Arial, sans-serif !important; 
