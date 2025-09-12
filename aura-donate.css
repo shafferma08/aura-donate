@@ -15,7 +15,10 @@ body input {
   height: 45px !important;
 }
 
-body input.IATS_RadioAmtButton, div.IATS_PaymentItemDiv input[type="radio"] {
+body input.IATS_RadioAmtButton, 
+div.IATS_PaymentItemDiv input[type="radio"],
+input#IATS_Payment_RecurringPayment,
+input#IATS_Payment_SinglePayment {
   accent-color: #B0D235;
 }
 
@@ -31,8 +34,12 @@ body div.IATS_AmountDiv {
 }
 
 body input.IATS_OtherAmount {
-  width: 75%;
+  width: 100%;
 }
+
+div#IATS_AmountListItemDiv_Other0 {
+    grid-column: span 2;
+  }
 
 body span.IATS_AmountSectionTitle, 
 body span.IATS_PaymentSectionTitle {
@@ -60,6 +67,10 @@ body div#IATS_PaymentItemDiv_FirstName {
 
 body div#IATS_PaymentItemDiv_LastName {
   width: 35%;
+}
+
+body div#IATS_PaymentItemDiv_Item7 {
+  width: 100%;
 }
 
 /* body div#IATS_CAPTCHADiv {
@@ -92,4 +103,27 @@ body button#IATS_ProcessAction_Button {
 #IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item6 { 
   display:inline-block !important; 
 
+}
+
+@media screen and (max-width: 660px) {
+  
+  
+  body div.IATS_AmountDiv {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  body span.IATS_AmountSectionTitle, 
+  body span.IATS_PaymentSectionTitle {
+    line-height: 1em;
+  }
+  
+  body span.IATS_PaymentSectionTitle {
+    margin-top: 20px;
+  }
+  
+  body div.IATS_PaymentItemDiv {
+    width: 100% !important;
+  }
 }
