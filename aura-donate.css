@@ -208,3 +208,22 @@ body button#IATS_ProcessAction_Button {
 #IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item6 {
   display: inline-block !important;
 }
+
+/* ---- One-time / Monthly toggle ---- */
+.donate-billing-toggle{
+  display:inline-flex; gap:6px; padding:6px;
+  background:#F4F6FA; border-radius:999px;
+  margin:0 auto 12px; align-items:center; justify-content:center;
+  width:fit-content; box-shadow:0 1px 2px rgba(0,0,0,.05);
+}
+.donate-billing-toggle .toggle{
+  padding:8px 14px; border-radius:999px; border:1px solid transparent;
+  cursor:pointer; font-weight:700; color:#333; background:#fff;
+}
+.donate-billing-toggle .toggle:hover{ border-color:#5e74b1; }
+
+/* Active state driven by the real radios inside #wrapperAura */
+body:has(#IATS_Payment_SinglePayment:checked) .donate-billing-toggle .once,
+body:has(#IATS_Payment_RecurringPayment:checked) .donate-billing-toggle .monthly{
+  color:#5e74b1; border-color:#5e74b1; background:rgba(94,116,177,.10);
+}
