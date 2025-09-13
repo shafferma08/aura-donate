@@ -1,117 +1,127 @@
 /* -----------------------------------------------------------
-   Friends & Co — Aura Donate (Amount Section polished)
+   Friends & Co — Aura Donate (Amount Section • organized)
    ----------------------------------------------------------- */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 
-/* Scope styles so we don't bleed outside the form */
-#IATS_PaymentBoxDiv,
-#IATS_PaymentBoxDiv *{
-  font-family:"Open Sans", Arial, sans-serif !important;
-  box-sizing:border-box;
-  color:#333 !important;
-}
-
-/* Brand tokens (optional) */
+/* Tokens */
 :root{
   --brand-blue:#5e74b1;
   --line:#E5E7EB;
   --accent:#B0D235;
+  --text:#333;
 }
 
-/* ===== AMOUNT INFORMATION — centered tiles + full-tile click + custom radios ===== */
+/* Scope styles to the IATS form */
+#IATS_PaymentBoxDiv,
+#IATS_PaymentBoxDiv *{
+  font-family:"Open Sans", Arial, sans-serif !important;
+  box-sizing:border-box;
+  color:var(--text) !important;
+  font-size:1.02em;
+}
 
-/* Section container: 2-col grid */
+/* ============================================================
+   AMOUNT INFORMATION
+   ============================================================ */
+
+/* Container: 2-col grid “card” */
 #IATS_AmountSectionDiv{
   display:grid !important;
-  grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  justify-items:stretch !important;            /* tiles fill the column */
   gap:12px 16px !important;
   background:#F4F6FA !important;
   padding:16px !important;
   border-radius:12px !important;
 }
 
-/* Title */
+/* Section title */
 #IATS_AmountSectionDiv > .IATS_AmountSectionTitle{
   grid-column:1 / -1 !important;
   text-align:center !important;
-  color:#5e74b1 !important;
+  color:var(--brand-blue) !important;
   font-size:2rem !important;
   font-weight:800 !important;
   margin:0 0 4px !important;
   line-height:1.1 !important;
 }
 
-/* Each amount tile */
+/* Tile */
 #IATS_AmountSectionDiv .IATS_AmountItemDiv{
-  position:relative !important;                     /* anchor for absolute children */
+  position:relative !important;
   display:flex !important;
   align-items:center !important;
-  justify-content:center !important;                /* centers the amount label */
+  justify-content:center !important;           /* centers amount pill */
   gap:12px !important;
   min-height:64px !important;
   padding:14px 16px !important;
   background:#fff !important;
-  border:1px solid #E5E7EB !important;
+  border:1px solid var(--line) !important;
   border-radius:12px !important;
   cursor:pointer !important;
-  max-width:520px !important;                       /* avoid super-long bars */
-  margin-inline:auto !important;                    /* center within the column */
+  width:100% !important;                        /* fill grid column */
 }
 
-/* Neutralize IATS’s inner tables so they don’t fight layout */
+/* Neutralize IATS inner table junk so centering works */
 #IATS_AmountSectionDiv .IATS_AmountItemDiv table{
-  width:auto !important;
-  margin:0 auto !important;
+  width:100% !important;
+  table-layout:fixed !important;
   border-collapse:collapse !important;
+  margin:0 !important;
   border:0 !important;
 }
 #IATS_AmountSectionDiv .IATS_AmountItemDiv td{
   width:auto !important;
   padding:0 !important;
   border:0 !important;
+  text-align:center !important;
+}
+/* Hide the extra spacer cell Aura injects */
+#IATS_AmountSectionDiv .IATS_AmountItemDiv tr td:nth-child(2){
+  display:none !important;
 }
 
-/* Make the real radio fill the whole tile (so the tile is clickable) */
+/* Make the real radio cover the whole tile (click anywhere) */
 #IATS_AmountSectionDiv .IATS_AmountItemDiv:not(#IATS_AmountListItemDiv_Other0) .IATS_RadioAmtButton{
   position:absolute !important;
-  inset:0 !important;                               /* top/right/bottom/left: 0 */
+  inset:0 !important;
   width:100% !important;
   height:100% !important;
   margin:0 !important;
-  opacity:0 !important;                             /* invisible but clickable */
+  opacity:0 !important;
   cursor:pointer !important;
   -webkit-appearance:none !important;
-          appearance:none !important;               /* hide native dot */
+          appearance:none !important;           /* hide native dot */
 }
 
-/* Draw our own radio dot on the tile */
+/* Custom radio ring on the tile */
 #IATS_AmountSectionDiv .IATS_AmountItemDiv:not(#IATS_AmountListItemDiv_Other0)::before{
   content:"";
   position:absolute;
   left:18px; top:50%;
-  width:18px; height:18px;
   transform:translateY(-50%);
+  width:18px; height:18px;
   border-radius:50%;
   background:#fff;
-  border:2px solid #9aa3ad;                         /* neutral ring */
+  border:2px solid #9aa3ad;                     /* neutral ring */
 }
 #IATS_AmountSectionDiv .IATS_AmountItemDiv:has(.IATS_RadioAmtButton:checked)::before{
-  border-color:#7aa31c;                             /* brandy green ring */
-  box-shadow: inset 0 0 0 6px #B0D235;              /* filled center */
+  border-color:#7aa31c;                         /* green ring */
+  box-shadow:inset 0 0 0 6px var(--accent);     /* filled center */
 }
 
-/* Tile hover & selected state */
+/* Hover / selected state for the tile */
 #IATS_AmountSectionDiv .IATS_AmountItemDiv:hover{
-  border-color:#5e74b1 !important;
-  box-shadow: inset 0 0 0 2px rgba(94,116,177,.08) !important;
+  border-color:var(--brand-blue) !important;
+  box-shadow:inset 0 0 0 2px rgba(94,116,177,.08) !important;
 }
 #IATS_AmountSectionDiv .IATS_AmountItemDiv:has(.IATS_RadioAmtButton:checked){
-  border-color:#5e74b1 !important;
-  box-shadow: inset 0 0 0 2px rgba(94,116,177,.10) !important;
+  border-color:var(--brand-blue) !important;
+  box-shadow:inset 0 0 0 2px rgba(94,116,177,.10) !important;
 }
 
-/* Amount “pill” text */
+/* Amount “pill” */
 .IATS_AmountSpan{
   display:inline-block !important;
   padding:8px 14px !important;
@@ -120,84 +130,92 @@
   font-weight:700 !important;
   text-align:center !important;
   min-width:128px !important;
+  margin:0 !important;
 }
 .IATS_RadioAmtButton:checked + .IATS_AmountSpan{
-  border-color:#5e74b1 !important;
+  border-color:var(--brand-blue) !important;
   background:rgba(94,116,177,.10) !important;
-  color:#5e74b1 !important;
+  color:var(--brand-blue) !important;
 }
 
-/* “Other” row: 2-col layout (label+radio | input) and aligned with tiles */
+/* ------------------------------------------------------------
+   “OTHER” ROW (label column is fully clickable; input locked
+   until radio is selected)
+   ------------------------------------------------------------ */
 #IATS_AmountListItemDiv_Other0{
-  grid-column:auto !important;
   display:grid !important;
-  grid-template-columns:auto 1fr !important;
+  grid-template-columns:minmax(200px, 35%) 1fr !important; /* label | input */
+  align-items:stretch !important;
   column-gap:12px !important;
-  align-items:center !important;
   padding:12px 14px !important;
-  max-width:520px !important;
-  margin-inline:auto !important;
   position:relative !important;
 }
 
-/* Keep the real radio visible/normal in the Other row */
+/* Label fills the first column, so it’s all clickable */
+#IATS_AmountListItemDiv_Other0 .IATS_RadioAmtLabel{
+  grid-column:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  height:100% !important;
+  width:100% !important;
+  cursor:pointer !important;
+  border-radius:8px !important;                  /* subtle hover area */
+}
+
+/* Keep the real radio visible in the Other row */
 #IATS_AmountListItemDiv_Other0 .IATS_RadioAmtButton{
-  width:18px !important; height:18px !important; margin-right:10px !important;
-  opacity:1 !important; appearance:auto !important;
+  width:18px !important;
+  opacity:1 !important;
+  appearance:auto !important;
 }
 
-/* Other label text */
+/* “Other” text (no pill) */
 #IATS_AmountListItemDiv_Other0 .IATS_AmountSpan{
-  padding:0 !important; border:none !important; min-width:auto !important; font-weight:700 !important;
+  padding:0 !important;
+  border:none !important;
+  min-width:auto !important;
+  font-weight:700 !important;
 }
 
-/* Bigger “Other” input with $ prefix */
+/* Input in second column (disabled until checked) */
 #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{
-  width:100% !important; height:60px !important;
-  font-size:1.15rem !important; line-height:1 !important;
-  border-radius:12px !important; padding-left:44px !important;
-  border:1px solid #E5E7EB !important;
+  grid-column:2 !important;
+  width:100% !important;
+  height:60px !important;
+  font-size:1.15rem !important;
+  line-height:1 !important;
+  border-radius:12px !important;
+  padding-left:44px !important;                  /* $ prefix space */
+  border:1px solid var(--line) !important;
   background-repeat:no-repeat !important;
   background-position:14px 50% !important;
   background-size:20px 20px !important;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ctext x='0' y='15' font-family='Open Sans, Arial, sans-serif' font-size='18' fill='%23727E8A'%3E%24%3C/text%3E%3C/svg%3E") !important;
+  pointer-events:none; opacity:.6; cursor:not-allowed;
+}
+#IATS_AmountListItemDiv_Other0:has(.IATS_RadioAmtButton:checked) .IATS_OtherAmount{
+  pointer-events:auto; opacity:1; cursor:text;
 }
 
-/* Mobile: single column */
+/* Neutralize any inner table crud */
+#IATS_AmountListItemDiv_Other0 table{ width:auto !important; border:0 !important; margin:0 !important; }
+#IATS_AmountListItemDiv_Other0 td{ width:auto !important; padding:0 !important; border:0 !important; }
+
+/* ============================================================
+   Mobile
+   ============================================================ */
 @media (max-width:660px){
-  #IATS_AmountSectionDiv{ grid-template-columns:1fr !important; }
-  #IATS_AmountSectionDiv > .IATS_AmountSectionTitle{ font-size:1.6rem !important; }
-}
-
-/* Make the 2-column grid stretch items to the full column width */
-#IATS_AmountSectionDiv{
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  justify-items: stretch !important;   /* grid items fill the column */
-}
-
-/* Let each tile fill its column (no centering / no width cap) */
-#IATS_AmountSectionDiv .IATS_AmountItemDiv{
-  max-width: none !important;
-  margin-inline: 0 !important;
-  width: 100% !important;
-}
-
-/* Kill the inline widths Aura sticks on the inner table/cells */
-#IATS_AmountSectionDiv .IATS_AmountItemDiv table{
-  width: 100% !important;
-  table-layout: fixed !important;
-}
-#IATS_AmountSectionDiv .IATS_AmountItemDiv td{
-  width: auto !important;
-}
-
-/* OPTIONAL: make “Other” span the full row.
-   Remove this if you want it to occupy just the left column. */
-#IATS_AmountListItemDiv_Other0{
-  grid-column: 1 / -1 !important;
-}
-
-/* Mobile: fall to one column */
-@media (max-width: 660px){
-  #IATS_AmountSectionDiv{ grid-template-columns: 1fr !important; }
+  #IATS_AmountSectionDiv{
+    grid-template-columns:1fr !important;
+  }
+  #IATS_AmountSectionDiv > .IATS_AmountSectionTitle{
+    font-size:1.6rem !important;
+  }
+  #IATS_AmountListItemDiv_Other0{
+    grid-template-columns:1fr !important;
+    row-gap:10px !important;
+  }
+  #IATS_AmountListItemDiv_Other0 .IATS_RadioAmtLabel{ grid-column:1 !important; }
+  #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{ grid-column:1 !important; }
 }
