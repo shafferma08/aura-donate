@@ -219,3 +219,28 @@
   #IATS_AmountListItemDiv_Other0 .IATS_RadioAmtLabel{ grid-column:1 !important; }
   #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{ grid-column:1 !important; }
 }
+
+
+/* =====================================================
+   Tribute fields — conditional visibility (restored)
+   ===================================================== */
+
+/* Hide tribute detail rows by default */
+#IATS_PaymentItemDiv_Item3,
+#IATS_PaymentItemDiv_Item4,
+#IATS_PaymentItemDiv_Item5,
+#IATS_PaymentItemDiv_Item6{
+  display: none !important;
+}
+
+/* Show when Type of Tribute is “In memory of” or “In honor of” */
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item3,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item4,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item5,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item6,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item3,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item4,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item5,
+#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item6{
+  display: inline-block !important;
+}
