@@ -1,229 +1,171 @@
 /* -----------------------------------------------------------
-   Friends & Co — Aura Donate (clean consolidated stylesheet)
+   Friends & Co — Aura Donate (Amount Section focused)
    ----------------------------------------------------------- */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 
-/* Scope colors & typography to the form to avoid bleeding */
+/* Scope styles to the form so we don’t bleed globally */
 #IATS_PaymentBoxDiv,
-#IATS_PaymentBoxDiv * {
-  font-family: "Open Sans", Arial, sans-serif !important;
-  box-sizing: border-box;
-  color: #333 !important;
+#IATS_PaymentBoxDiv *{
+  font-family:"Open Sans", Arial, sans-serif !important;
+  box-sizing:border-box;
+  color:#333 !important;
 }
 
-/* Misc table cells used in the template */
-body td {
-  width: 100%;
-  font-size: 1.2em;
-  border: none;
-}
-
-/* Inputs (consistent touch-friendly height) */
-body input {
-  height: 45px !important;
-}
-
-/* Radios: brand accent */
-body input.IATS_RadioAmtButton,
-div.IATS_PaymentItemDiv input[type="radio"],
-input#IATS_Payment_RecurringPayment,
-input#IATS_Payment_SinglePayment {
-  accent-color: #B0D235; /* Friends & Co green */
-}
-
-/* Page header (top label) */
-body label.IATS_EventTitle {
-  text-align: center;
-  font-weight: bold;
-  color: #5e74b1 !important; /* brand blue */
+/* Optional: page heading (IATS uses label.IATS_EventTitle) */
+label.IATS_EventTitle{
+  text-align:center; font-weight:800; color:#5e74b1 !important;
 }
 
 /* ---------------------------------------
-   AMOUNT INFORMATION (polished + compact)
+   AMOUNT INFORMATION — polished tiles
    --------------------------------------- */
 
-/* Section container: real grid, light card bg */
-#IATS_AmountSectionDiv {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* 2-col desktop */
-  gap: 12px 16px !important;     /* tight vertical + horizontal spacing */
-  background: #F4F6FA !important;
-  padding: 16px !important;
-  border-radius: 12px !important;
+/* Card + 2-col grid */
+#IATS_AmountSectionDiv{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+  gap:12px 16px !important;
+  background:#F4F6FA !important;
+  padding:16px !important;
+  border-radius:12px !important;
 }
 
-/* Section title: centered, less vertical space */
-#IATS_AmountSectionDiv > .IATS_AmountSectionTitle {
-  grid-column: 1 / -1 !important;
-  text-align: center !important;
-  color: #5e74b1 !important;
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  margin: 0 0 4px !important;
+/* Kill the big white bars from the IATS tables inside the section */
+#IATS_AmountSectionDiv table{ width:auto !important; margin:0 auto !important; border:0 !important; }
+#IATS_AmountSectionDiv td{ padding:0 !important; background:transparent !important; }
+
+/* Title */
+#IATS_AmountSectionDiv > .IATS_AmountSectionTitle{
+  grid-column:1 / -1 !important;
+  text-align:center !important;
+  color:#5e74b1 !important;
+  font-size:2rem !important;
+  font-weight:800 !important;
+  margin:0 0 4px !important;
+  line-height:1.1 !important;
 }
 
-/* Amount tiles */
-#IATS_AmountSectionDiv .IATS_AmountItemDiv {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;   /* centers radio + amount */
-  gap: 12px !important;
-  padding: 10px 12px !important;
-  background: #fff !important;
-  border: 1px solid #E5E7EB !important;
-  border-radius: 12px !important;
+/* Tiles: center the amount; keep radio visible but out of the flow */
+#IATS_AmountSectionDiv .IATS_AmountItemDiv{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;      /* centers the pill */
+  gap:12px !important;
+  min-height:64px !important;
+  padding:14px 16px !important;
+  background:#fff !important;
+  border:1px solid #E5E7EB !important;
+  border-radius:12px !important;
+  cursor:pointer !important;
 }
 
-/* Radios + “pill” amounts */
-.IATS_RadioAmtButton {
-  width: 18px !important;
-  height: 18px !important;
-  margin-right: 6px !important;
+/* Place the radio on the left edge without affecting centering */
+#IATS_AmountSectionDiv .IATS_AmountItemDiv .IATS_RadioAmtButton{
+  position:absolute !important;
+  left:16px !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  margin:0 !important;
+  width:18px !important;
+  height:18px !important;
+  accent-color:#B0D235 !important;
 }
 
-.IATS_AmountSpan {
-  display: inline-block !important;
-  padding: 6px 12px !important;
-  border-radius: 999px !important;
-  border: 1px solid transparent !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  text-align: center !important;
-  min-width: 120px !important;          /* consistent pill width */
+/* Make the whole tile clickable via the LABEL (no JS) */
+#IATS_AmountSectionDiv .IATS_AmountItemDiv:not(#IATS_AmountListItemDiv_Other0) .IATS_RadioAmtLabel{
+  position:absolute !important;
+  inset:0 !important;
+  display:block !important;
+  z-index:5 !important;
+  opacity:0 !important;                 /* invisible, but clickable */
+  cursor:pointer !important;
 }
 
-/* Selected / hover / focus states */
-.IATS_RadioAmtButton:checked + .IATS_AmountSpan {
-  border-color: #5e74b1 !important;
-  background: rgba(94, 116, 177, .10) !important;
-  color: #5e74b1 !important;
+/* Amount “pill” */
+.IATS_AmountSpan{
+  display:inline-block !important;
+  padding:8px 14px !important;
+  border-radius:999px !important;
+  border:1px solid transparent !important;
+  font-weight:700 !important;
+  text-align:center !important;
+  min-width:128px !important;
 }
 
-#IATS_AmountSectionDiv .IATS_AmountItemDiv:hover {
-  border-color: #5e74b1 !important;
-  box-shadow: inset 0 0 0 2px rgba(94, 116, 177, .08) !important;
+/* Selected / hover */
+.IATS_RadioAmtButton:checked + .IATS_AmountSpan{
+  border-color:#5e74b1 !important;
+  background:rgba(94,116,177,.10) !important;
+  color:#5e74b1 !important;
+}
+#IATS_AmountSectionDiv .IATS_AmountItemDiv:has(.IATS_RadioAmtButton:checked){
+  border-color:#5e74b1 !important;
+  box-shadow: inset 0 0 0 2px rgba(94,116,177,.10) !important;
+}
+#IATS_AmountSectionDiv .IATS_AmountItemDiv:hover{
+  border-color:#5e74b1 !important;
+  box-shadow: inset 0 0 0 2px rgba(94,116,177,.08) !important;
 }
 
-.IATS_RadioAmtButton:focus-visible + .IATS_AmountSpan {
-  outline: 2px solid #5e74b1 !important;
-  outline-offset: 2px !important;
-}
-
-/* “Other” row: tidy two-column layout (label+radio | input) */
-#IATS_AmountListItemDiv_Other0 {
-  grid-column: auto !important;            /* keep inline, not spanning both cols */
-  display: grid !important;
-  grid-template-columns: auto 1fr !important;
-  column-gap: 12px !important;
-  align-items: center !important;
-  padding: 10px 12px !important;            /* match other tiles */
-}
-
-#IATS_AmountListItemDiv_Other0 .IATS_RadioAmtButton {
-  margin-right: 8px !important;             /* snug radio-to-label spacing */
-}
-
-#IATS_AmountListItemDiv_Other0 .IATS_AmountSpan {
-  padding: 0 !important;
-  border: none !important;
-  min-width: auto !important;
-  font-weight: 700 !important;
-}
-
-#IATS_AmountListItemDiv_Other0 .IATS_OtherAmount {
-  width: 100% !important;
-  height: 45px !important;
-  padding: 10px 12px !important;
-  border: 1px solid #E5E7EB !important;
-  border-radius: 10px !important;
-}
-
-/* Bigger, more legible "Other" input with a visual $ prefix */
-#IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{
-  height: 60px !important;
-  font-size: 1.15rem !important;
-  line-height: 1 !important;
-  border-radius: 12px !important;
-
-  /* room for the $ icon */
-  padding-left: 44px !important;
-
-  /* visual $ symbol (not part of the value) */
-  background-repeat: no-repeat !important;
-  background-position: 14px 50% !important;
-  background-size: 20px 20px !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ctext x='0' y='15' font-family='Open Sans, Arial, sans-serif' font-size='18' fill='%23727E8A'%3E%24%3C/text%3E%3C/svg%3E") !important;
-}
-
-/* Keep the "Other" row tidy and aligned */
+/* “Other” row: clean 2-col layout (label+radio | input) */
 #IATS_AmountListItemDiv_Other0{
-  align-items: center !important;
+  grid-column:auto !important;
+  display:grid !important;
+  grid-template-columns:auto 1fr !important;
+  column-gap:12px !important;
+  align-items:center !important;
+  padding:12px 14px !important;
 }
 
-#IATS_AmountListItemDiv_Other0 .IATS_RadioAmtButton{
-  margin-right: 10px !important;
+/* Keep the label fully interactive for the radio; lay it out nicely */
+#IATS_AmountListItemDiv_Other0 .IATS_RadioAmtLabel{
+  position:static !important;
+  opacity:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  cursor:pointer !important;
+}
+#IATS_AmountListItemDiv_Other0 .IATS_AmountSpan{
+  padding:0 !important;
+  border:none !important;
+  min-width:auto !important;
+  font-weight:700 !important;
+}
+
+/* Bigger “Other” input + visual $ */
+#IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{
+  width:100% !important;
+  height:60px !important;
+  font-size:1.15rem !important;
+  line-height:1 !important;
+  border-radius:12px !important;
+  padding-left:44px !important;                /* room for $ */
+  border:1px solid #E5E7EB !important;
+  background-repeat:no-repeat !important;
+  background-position:14px 50% !important;
+  background-size:20px 20px !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ctext x='0' y='15' font-family='Open Sans, Arial, sans-serif' font-size='18' fill='%23727E8A'%3E%24%3C/text%3E%3C/svg%3E") !important;
+}
+
+/* Mobile: single column */
+@media (max-width:660px){
+  #IATS_AmountSectionDiv{ grid-template-columns:1fr !important; }
+  #IATS_AmountSectionDiv > .IATS_AmountSectionTitle{ font-size:1.6rem !important; }
 }
 
 
-/* Mobile: 1 column + slightly smaller title */
-@media (max-width: 660px) {
-  #IATS_AmountSectionDiv { grid-template-columns: 1fr !important; }
-  #IATS_AmountSectionDiv > .IATS_AmountSectionTitle { font-size: 1.6rem !important; }
-}
-
-/* Center the small helper line in Payment section (“Bold field is required…”) */
-body span.IATS_PaymentSectionNote {
-  text-align: center;
-}
-
-/* Submit button */
-body button#IATS_ProcessAction_Button {
-  background: #BA3F97;
-  color: #fff !important;
-  text-transform: uppercase;
-  border: none;
-}
 
 /* ---------------------------------------
-   Tribute fields: conditional visibility
+   Light touch outside Amount section
    --------------------------------------- */
 
-/* Hide tribute detail rows by default */
-#IATS_PaymentItemDiv_Item3,
-#IATS_PaymentItemDiv_Item4,
-#IATS_PaymentItemDiv_Item5,
-#IATS_PaymentItemDiv_Item6 {
-  display: none !important;
-}
-
-/* Show details when Type of Tribute is "In memory of" or "In honor of" */
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item3,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item4,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item5,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In memory of"]:checked) #IATS_PaymentItemDiv_Item6,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item3,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item4,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item5,
-#IATS_PaymentSectionDiv:has(#IATS_PaymentItemInput_Item2 option[value="In honor of"]:checked) #IATS_PaymentItemDiv_Item6 {
-  display: inline-block !important;
-}
-
-/* ---- One-time / Monthly toggle ---- */
-.donate-billing-toggle{
-  display:inline-flex; gap:6px; padding:6px;
-  background:#F4F6FA; border-radius:999px;
-  margin:0 auto 12px; align-items:center; justify-content:center;
-  width:fit-content; box-shadow:0 1px 2px rgba(0,0,0,.05);
-}
-.donate-billing-toggle .toggle{
-  padding:8px 14px; border-radius:999px; border:1px solid transparent;
-  cursor:pointer; font-weight:700; color:#333; background:#fff;
-}
-.donate-billing-toggle .toggle:hover{ border-color:#5e74b1; }
-
-/* Active state driven by the real radios inside #wrapperAura */
-body:has(#IATS_Payment_SinglePayment:checked) .donate-billing-toggle .once,
-body:has(#IATS_Payment_RecurringPayment:checked) .donate-billing-toggle .monthly{
-  color:#5e74b1; border-color:#5e74b1; background:rgba(94,116,177,.10);
+/* Comfortable default input height elsewhere (doesn’t fight Aura) */
+#IATS_PaymentBoxDiv input[type="text"],
+#IATS_PaymentBoxDiv input[type="email"],
+#IATS_PaymentBoxDiv input[type="tel"],
+#IATS_PaymentBoxDiv select{
+  height:45px !important;
 }
