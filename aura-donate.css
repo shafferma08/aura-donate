@@ -26,7 +26,7 @@
    ============================================================ */
 
 /* Container: 2-col grid “card” */
-#IATS_AmountSectionDiv{
+#IATS_AmountSectionDiv {
   display:grid !important;
   grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
   justify-items:stretch !important;            /* tiles fill the column */
@@ -106,7 +106,8 @@
   background:#fff;
   border:2px solid #9aa3ad;                     /* neutral ring */
 }
-#IATS_AmountSectionDiv .IATS_AmountItemDiv:has(.IATS_RadioAmtButton:checked)::before{
+
+#IATS_AmountSectionDiv .IATS_AmountItemDiv:has(.IATS_RadioAmtButton:checked)::before {
   border-color:#7aa31c;                         /* green ring */
   box-shadow:inset 0 0 0 6px var(--accent);     /* filled center */
 }
@@ -219,6 +220,76 @@
   #IATS_AmountListItemDiv_Other0 .IATS_RadioAmtLabel{ grid-column:1 !important; }
   #IATS_AmountListItemDiv_Other0 .IATS_OtherAmount{ grid-column:1 !important; }
 }
+
+/* ============================
+   PAYMENT INFORMATION (GRID)
+   ============================ */
+
+#IATS_PaymentSectionDiv{
+  background:#F4F6FA !important;
+  border-radius:12px !important;
+}
+
+input.IATS_PaymentInputField, textarea.IATS_PaymentInputField, select.IATS_PaymentInputField {
+    min-height: 44px !important;
+    padding: 14px 16px !important;
+    border-color:var(--brand-blue) !important;
+    border-width: thin !important;
+}
+
+div#IATS_PaymentItemDiv_Title {
+  width: 15% !important;
+}
+
+div#IATS_PaymentItemDiv_FirstName,
+div#IATS_PaymentItemDiv_LastName {
+  width: 36% !important;
+}
+
+div#IATS_PaymentItemDiv_Item7 {
+  width: 100%;
+}
+
+/* Title matches Amount title */
+#IATS_PaymentSectionDiv > .IATS_PaymentSectionTitle{
+  text-align:center !important;
+  color:#5e74b1 !important;
+  font-size:2rem !important;
+  font-weight:800 !important;
+  margin:0 0 4px !important;
+  line-height:1.1 !important;
+}
+
+#IATS_PaymentSectionDiv > .IATS_PaymentSectionNote{
+  text-align:center !important;
+  margin-bottom:4px !important;
+}
+
+div.IATS_PaymentItemDiv label {
+font-size: 1.1em;
+}
+
+#IATS_PaymentBoxDiv select {
+  color: #BA3F97 !important;
+}
+
+#IATS_PaymentBoxDiv input, #IATS_PaymentBoxDiv select, #IATS_PaymentBoxDiv textarea {
+  font-size: 1em !important;
+}
+
+@media (max-width:660px) {
+  div#IATS_PaymentItemDiv_Title,
+  div#IATS_PaymentItemDiv_FirstName,
+  div#IATS_PaymentItemDiv_LastName {
+    width: 100% !important;
+  }
+  
+  div.IATS_PaymentItemDiv {
+    width: 100% !important;
+  }
+ 
+}
+
 
 
 /* =====================================================
