@@ -17,10 +17,14 @@
 #IATS_PaymentBoxDiv *{
   font-family:"Open Sans", Arial, sans-serif !important;
   box-sizing:border-box;
-  color:var(--text) !important;
   font-size:1.02em;
 }
 
+div#IATS_AmountSectionDiv, 
+div#IATS_PaymentSectionDiv {
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+}
 /* ============================================================
    AMOUNT INFORMATION
    ============================================================ */
@@ -228,6 +232,7 @@
 #IATS_PaymentSectionDiv{
   background:#F4F6FA !important;
   border-radius:12px !important;
+  padding:16px !important;
 }
 
 input.IATS_PaymentInputField, textarea.IATS_PaymentInputField, select.IATS_PaymentInputField {
@@ -341,7 +346,10 @@ div#IATS_Payment_ExpiryDateDiv {
  
 }
 
-
+button.IATS_Disabled {
+  background: #BA3F97 !important;
+  
+}
 
 /* =====================================================
    Tribute fields — conditional visibility (restored)
