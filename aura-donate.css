@@ -299,9 +299,22 @@ input#IATS_Payment_AccountNumber {
     width: 100%;
 }
 
+input#IATS_Payment_CVV2 {
+    width: 100%;
+}
+
 div#IATS_CAPTCHADiv {
     width: 300px !important;
     margin: auto !important;
+}
+
+div#IATS_Payment_CVV2Div {
+    width: 20%;
+    float: left;
+}
+
+div#IATS_Payment_AccountNumberDiv {
+    float: left;
 }
 
 @media (max-width:660px) {
