@@ -365,6 +365,10 @@ div#IATS_Payment_AccountNumberDiv,
 div#IATS_Payment_ExpiryDateDiv {
   width: 100% !important;
 }
+
+div#IATS_Payment_PaymentFrequencyDiv {
+    flex-direction: column !important;
+  }
  
 }
 
