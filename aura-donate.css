@@ -94,10 +94,10 @@ div#IATS_PaymentSectionDiv {
   width:100% !important;
   height:100% !important;
   margin:0 !important;
-  opacity:0 !important;
+  opacity:0.01 !important;  /* ← Changed from 0 to 0.01 so it's clickable */
   cursor:pointer !important;
-  -webkit-appearance:none !important;
-          appearance:none !important;           /* hide native dot */
+  z-index:10 !important;  /* ← Ensure it's on top */
+  /* Removed appearance:none so native radio functionality works */
 }
 
 /* Custom radio ring on the tile */
