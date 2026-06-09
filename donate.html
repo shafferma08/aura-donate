@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friends &amp; Co Donation Form</title>
+<style>
+  /* Transparent so the parent page's background shows through.
+     The iATS form supplies its own card backgrounds + your custom stylesheet. */
+  html, body { margin: 0; padding: 0; background: transparent; }
+  /* Avoid a brief flash of full-height scrollbar before sizing settles */
+  body { overflow: hidden; }
+</style>
+</head>
+<body>
+
+  <!-- The iATS Aura form injects itself here. Your custom stylesheet
+       (configured inside the Aura builder) loads with it automatically. -->
+  <div id="aura-host">
+    <script type="text/javascript"
+            src="https://www.iatspayments.com/AURA/AURA.aspx?PID=PA86631AB3E569CA48"></script>
+  </div>
+
+  <!-- Height reporter: tells the parent page how tall the form is,
+       and updates whenever the form grows or shrinks (Monthly schedule
+       fields, tribute fields, validation errors, mobile reflow). -->
+  <script>
+    (function () {
+      var lastSent = 0;
+
+      function currentHeight() {
+        // Use the tallest reliable measure of the content.
+        var b = document.body, e = document.documentElement;
+        return Math.max(
+          b.scrollHeight, b.offsetHeight,
+          e.scrollHeight, e.offsetHeight
+        );
+      }
+
+      function reportHeight() {
+        var h = currentHeight();
+        if (h && Math.abs(h - lastSent) > 2) {
+          lastSent = h;
+          // Height data only — safe to broadcast; the parent validates origin.
+          parent.postMessage({ auraHeight: h }, '*');
+        }
+      }
+
+      // Report once the form has rendered, and on viewport resize.
+      window.addEventListener('load', reportHeight);
+      window.addEventListener('resize', reportHeight);
+
+      // Watch the form for any DOM changes and re-report height live.
+      if (window.MutationObserver) {
+        var mo = new MutationObserver(reportHeight);
+        mo.observe(document.body, {
+          subtree: true, childList: true, attributes: true, characterData: true
+        });
+      }
+
+      // Belt-and-suspenders: poll for the first ~12s to catch the
+      // form's async build, then stop.
+      var ticks = 0;
+      var poll = setInterval(function () {
+        reportHeight();
+        if (++ticks > 24) clearInterval(poll);
+      }, 500);
+    })();
+  </script>
+
+</body>
+</html>
