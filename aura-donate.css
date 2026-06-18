@@ -61,7 +61,7 @@ div#IATS_PaymentSectionDiv {
   gap:12px !important;
   min-height:64px !important;
   padding:14px 16px !important;
-  background:#fff !important;
+  /* background:#fff !important; */
   border:1px solid #9aa3ad !important;
   border-radius:12px !important;
   cursor:pointer !important;
