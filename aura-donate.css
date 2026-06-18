@@ -25,7 +25,6 @@ div#IATS_AmountSectionDiv,
 div#IATS_PaymentSectionDiv {
     border-top: 2px solid var(--accent);
     border-bottom: 2px solid var(--accent);
-   background: #F7FDDF !important;
 }
 /* ============================================================
    AMOUNT INFORMATION
