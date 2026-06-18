@@ -19,12 +19,14 @@
   font-family:"Open Sans", Arial, sans-serif !important;
   box-sizing:border-box;
   font-size:1.02em;
+  background: transparent !important;
 }
 
 div#IATS_AmountSectionDiv, 
 div#IATS_PaymentSectionDiv {
     border-top: 2px solid var(--accent);
     border-bottom: 2px solid var(--accent);
+   background: #F7FDDF !important;
 }
 /* ============================================================
    AMOUNT INFORMATION
